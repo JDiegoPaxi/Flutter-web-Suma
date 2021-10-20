@@ -36,7 +36,7 @@ class _SumaPageState extends State<SumaPage> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-     backgroundColor: Colors.white,
+     backgroundColor: Colors.green[300],
       body: Align(
         alignment: Alignment.center,
         child: Container(
@@ -55,6 +55,9 @@ class _SumaPageState extends State<SumaPage> {
                 controller: tnum1,
                 keyboardType: TextInputType.number,
                   decoration: dec1,
+                  onChanged: (valor){
+                    _validarValores(valor,tnum1);
+                  },
                   inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp ( r"[0-9]" ))
                     ],
@@ -72,6 +75,9 @@ class _SumaPageState extends State<SumaPage> {
                 inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp ( r"[0-9]" ))
                     ],
+                onChanged: (valor){
+                  _validarValores(valor,tnum2);
+                },
               ),
               SizedBox(height: 30,),
               ElevatedButton(
@@ -106,4 +112,28 @@ class _SumaPageState extends State<SumaPage> {
       
     );
   }
+
+  _validarValores(String valor,TextEditingController t){
+    int n=valor.length;
+                  switch (n) {
+                    case 0: {
+                      
+                    setState(() {
+                      t.text='0';
+                      t.selection=TextSelection.collapsed(offset: t.text.length);             
+                    });
+                    }                     
+                      break;
+                    case 2:{
+                      if(valor[0]=='0'){
+                        t.text=valor.substring(1);
+                        t.selection=TextSelection.collapsed(offset: t.text.length);
+                      }
+                    } break;
+                    default:
+                  }
+  }
+
+
+
 }
